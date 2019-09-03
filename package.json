@@ -1,0 +1,49 @@
+{
+  "name": "home-owner-bestie",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://dvinun.github.io/home-owner-bestie-app/",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "bootstrap": "^4.3.1",
+    "formik": "^1.5.8",
+    "intl": "^1.2.5",
+    "react": "^16.9.0",
+    "react-async-script-loader": "^0.3.0",
+    "react-bootstrap": "^1.0.0-beta.12",
+    "react-dom": "^16.9.0",
+    "react-places-autocomplete": "^7.2.1",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.1.1",
+    "react-spring": "^8.0.27",
+    "toasted-notes": "^3.0.0",
+    "universal-cookie": "^4.0.2",
+    "yup": "^0.27.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "gh-pages": "^2.1.1"
+  }
+}

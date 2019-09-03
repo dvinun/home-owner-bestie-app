@@ -1,0 +1,52 @@
+.search-home-address-textbox
+{
+    margin-top: 1.5rem;
+}
+
+.jumbotron-valuate-home-rent {
+    background-color: #e9ecef;
+    border-radius: .3rem;
+}
+
+.valuate-home-rent-summary
+{
+    background-color: #dee0e2 !important;
+    border-radius: .3rem;
+    padding: 10px;
+}
+
+.valuate-home-rent-summary-column
+{
+}
+
+.home-rent-summary-label
+{
+}
+
+.home-rent-summary-font-size
+{
+    font-size: x-large !important;
+    color: #34629b !important;
+    font-weight: 500;
+}
+
+.home-rent-summary-label
+{
+    margin-bottom: 0 !important;
+}
+
+.autocomplete-dropdown-container
+{
+    font-size: x-large !important;
+}
+
+#warningRentZestimateNotAvailable
+{
+    color: rgba(255, 0, 0, 0.637);
+    font-size: small;
+    font-weight: bold;
+}
+
+.home-rent-summary-send-report-result-alert
+{
+}

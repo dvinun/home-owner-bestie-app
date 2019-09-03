@@ -1,0 +1,74 @@
+.service-card
+{
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+  /* Smartphones (landscape) ----------- */
+  @media only screen and (min-width: 321px) {
+    .service-card-image
+    {
+        width: 5rem !important;
+    }
+  }
+  
+  /* Smartphones (portrait) ----------- */
+@media only screen and (max-width: 320px) {
+    .service-card-image
+    {
+        width: 7rem !important;
+    }
+  }
+
+  /* Samsung Galaxy S5 (landscape) ----------- */
+@media only screen and (min-device-width: 360px) and (max-device-height: 640px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 3) {
+    .service-card-image
+    {
+        width: 3rem !important;
+    }
+  }
+  
+  /* Samsung Galaxy S5 (portrait) ----------- */
+  @media only screen and (min-device-width: 360px) and (max-device-height: 640px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 3) {
+    .service-card-image
+    {
+        width: 6rem !important;
+    }
+  }
+  
+  
+  
+/* iPhone 6 (landscape) ----------- */
+@media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2) {
+    .service-card-image
+    {
+        width: 3rem !important;
+    }
+  }
+  
+  /* iPhone 6 (portrait) ----------- */
+  @media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2) {
+    .service-card-image
+    {
+        width: 6rem !important; 
+    }
+  }
+
+  /* Desktops and laptops ----------- */
+@media only screen and (min-width: 1224px) {
+    .service-card-image
+    {
+        width: 6rem !important; 
+    }
+
+  }
+  
+  /* Large screens ----------- */
+  @media only screen and (min-width: 1824px) {
+    .service-card-image
+    {
+        width: 6rem !important; 
+    }
+
+  }
+  

@@ -1,0 +1,91 @@
+
+.header-main
+{
+    height: 60px;
+    background-color:#34629b;
+    z-index: 0;
+}
+
+.header-company-name-small:hover
+{
+    cursor: pointer;
+}
+
+.header-company-name
+{
+    font-family: 'Bukhari Script'; 
+    z-index: 3;
+    position: absolute;
+    color: #ffffff;
+    font-size: xx-large;
+    top: 5px;
+    left: 10px;
+}
+
+.header-company-tagline
+{
+    font-family: 'Bukhari Script'; 
+    z-index: 2;
+    position: absolute;
+    top: 160px;
+    color: #e8f8da;
+    font-size: large;
+    width: 100%;
+}
+
+.header-shortcuts
+{
+    z-index: 2;
+    position: absolute;
+    width: 100%;
+    text-align: right;
+    top: 10px;
+    right: 20px;
+    float: left;
+}
+
+.header-shortcuts  > *{
+    display :block;
+    width: 100%;
+}
+
+.shortcut-header-link
+{
+    float: right;
+}
+
+.shortcut-header-link *
+{
+    display: inline-block;
+}
+
+.shortcut-header-link-icon-image
+{
+    height: 35px;
+}
+
+.shortcut-header-link-icon
+{
+}
+
+.shortcut-header-link-text, .shortcut-header-link-text > a
+{
+    vertical-align: middle;
+    color: #e8f8da;
+}
+
+@media only screen and (max-width: 550px) {
+    .header-shortcuts {
+        display: none;
+    }
+}
+
+.header-user-welcome-text
+{
+    text-align: right !important;
+    color: white;
+    font-weight: 700;
+    font-size: x-large;
+    padding-right: 30px !important;
+    padding-top: 8px !important;
+}
