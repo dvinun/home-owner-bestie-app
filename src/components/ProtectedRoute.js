@@ -25,12 +25,8 @@ export class ProtectedRoute extends Component {
         render={props => (
           isUserSignedUp ?
             renderMethod(props) :
-            <Redirect
-              to={{
-                pathname: "/getstarted",
-                state: { caller: props.location}
-              }}
-            />
+            <Redirect to={`${process.env.PUBLIC_URL}/getstarted`}/>
+            
         )}
       />
     )

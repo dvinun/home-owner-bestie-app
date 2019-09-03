@@ -18,35 +18,35 @@ class Home extends Component {
                     </Row>
                     <Row>
                         <CardDeck >
-                            <Card bg="light" className='service-card' onClick={() => this.props.onClickServiceType('rentyourhome')}>
+                            <Card bg="light" className='service-card' onClick={() => this.props.onClickServiceType('rentyourhome', this.props.history)}>
                                 <Card.Header className='font-weight-bold' >Rent Your Home</Card.Header>
                                 <Card.Body className='text-center'>
                                     <Card.Img src='/images/icons/rental.png' className='service-card-image ' />
                                     <div className='little-padding-top'> We will take care from the start-to-end till renter sends you a check for deposit.</div>
                                 </Card.Body>
                             </Card>
-                            <Card bg="light" className='service-card' onClick={() => this.props.onClickServiceType('valuatehomerent')}>
+                            <Card bg="light" className='service-card' onClick={() => this.props.onClickServiceType('valuatehomerent', this.props.history)}>
                                 <Card.Header className='font-weight-bold'>Valuate Home Rent</Card.Header>
                                 <Card.Body className='text-center'>
                                     <Card.Img src='/images/icons/computer.png' className='service-card-image ' />
                                     <div className='little-padding-top'>Our revolutionary valuation algorithms will help you setting up a right price tags.</div>
                                 </Card.Body>
                             </Card>
-                            <Card bg="light" className='service-card' onClick={() => this.props.onClickServiceType('homerepairs')}>
+                            <Card bg="light" className='service-card' onClick={() => this.props.onClickServiceType('homerepairs', this.props.history)}>
                                 <Card.Header className='font-weight-bold'>Home Repairs</Card.Header>
                                 <Card.Body className='text-center'>
                                     <Card.Img src='/images/icons/paint-roller.png' className='service-card-image ' />
                                     <div className='little-padding-top'> We got best people who can fix your issues with great quotes and quality.  </div>
                                 </Card.Body>
                             </Card>
-                            <Card bg="light" className='service-card' onClick={() => this.props.onClickServiceType('exploreneighborhood')}>
+                            <Card bg="light" className='service-card' onClick={() => { debugger; this.props.onClickServiceType('exploreneighborhood', this.props.history)}}>
                                 <Card.Header className='font-weight-bold'>Explore Neighborhood</Card.Header>
                                 <Card.Body className='text-center'>
                                     <Card.Img src='/images/icons/village.png' className='service-card-image ' />
                                     <div className='little-padding-top'>See how others are doing with their homes around you. </div>
                                 </Card.Body>
                             </Card>
-                            <Card bg="light" className='service-card' onClick={() => this.props.onClickServiceType('explorecommunity')}>
+                            <Card bg="light" className='service-card' onClick={() => this.props.onClickServiceType('explorecommunity', this.props.history)}>
                                 <Card.Header className='font-weight-bold'>Explore Community</Card.Header>
                                 <Card.Body className='text-center'>
                                     <Card.Img src='/images/icons/friendship.png' className='service-card-image ' />

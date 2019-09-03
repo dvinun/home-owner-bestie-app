@@ -18,7 +18,7 @@ class Header extends Component {
                 <div className='header-main'>
                     <Row>
                         <Col md={4} className='header-company-name'>Home Owner Bestie </Col>
-                        <Col md={{ span: 4, offset: 4 }} className='header-user-welcome-text'>{userWelcomeDiv}</Col>
+                        <Col md={{ offset: 4 }} className='header-user-welcome-text'>{userWelcomeDiv}</Col>
                     </Row>
                 </div>
             </React.Fragment>

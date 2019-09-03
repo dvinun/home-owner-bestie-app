@@ -15,7 +15,7 @@ class SignUp extends Component {
     constructor(props) {
         super();
         
-        this.caller = props.location.state && (props.location.state.caller || '/');
+        this.caller = props.location.state && (props.location.state.caller || `${process.env.PUBLIC_URL}/`);
         this.state = {
             signUpComplete: false,
         };
@@ -30,7 +30,7 @@ class SignUp extends Component {
             // header component to shwo the signed up user name
             // window.location.replace(this.caller && (this.caller.pathname || '/'));
             
-            return <Redirect to={this.caller && (this.caller.pathname || '/')} />;
+            return <Redirect to={this.caller && (this.caller.pathname || `${process.env.PUBLIC_URL}/`)} />;
         }
         else
             return (
@@ -38,7 +38,7 @@ class SignUp extends Component {
                     <div className="row justify-content-md-center">
                         <div>
                             <Formik
-                                initialValues={{ email: "dvinun@gmail.com", firstName: "Vinu", phone: "2781728189", lastName: "" }}
+                                initialValues={{ email: "dvinun@gmail.com", firstName: "John", phone: "6502191826", lastName: "Doe" }}
                                 validationSchema={Yup.object().shape({
                                     firstName: Yup.string()
                                         .required('First Name is required'),
@@ -77,10 +77,6 @@ class SignUp extends Component {
                                     }
 
                                     setSubmitting(false);
-                                    //let { from } = this.props.location.state || { from: { pathname: "/" } };
-                                    //this.props.history.push(this.caller.pathname);
-                                    //this.props.history.goBack();
-                                    //this.props.navigation.goBack(null);
                                 }}
                             >
                                 {({ touched, errors, isSubmitting }) => (

@@ -20,8 +20,8 @@ class GetStarted extends Component {
                     render={props =>
                         <Redirect
                             to={{
-                                pathname: "/signup",
-                                state: { caller: props.location.state && (props.location.state.caller || { caller: { pathname: "/" } }) }
+                                pathname: `${process.env.PUBLIC_URL}/signup`,
+                                state: { caller: props.location.state && (props.location.state.caller || { caller: { pathname: `${process.env.PUBLIC_URL}/` } }) }
                             }}
                         />
                     }

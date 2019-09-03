@@ -8,8 +8,7 @@ import Home from './components/Home';
 import ValuateHomeRent from './components/ValuateHomeRent';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './BootstrapOverrides.css';
-import { Router, Route, Switch, Redirect } from 'react-router-dom';
-import history from './History';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import { sectionNames } from './common/Properties';
 import Utils from './common/Utils';
@@ -40,24 +39,24 @@ class App extends Component {
     //window.location.reload();
   }
 
-  onInvokeNewSection(sectionName) {
-    
+  onInvokeNewSection(sectionName, history) {
+    debugger;
     if (sectionName === sectionNames.valuatehomerent
       || sectionName === sectionNames.rentyourhome
       || sectionName === sectionNames.exploreneighborhood
       || sectionName === sectionNames.explorecommunity
       || sectionName === sectionNames.homerepairs) {
-      history.push(`/home/${sectionName}`);
+        history.push(`${process.env.PUBLIC_URL}/home/${sectionName}`);
     }
     else {
-      history.push(`/${sectionName}`);
+      history.push(`${process.env.PUBLIC_URL}/${sectionName}`);
     }
     this.setState({});
   }
 
   componentDidMount() {
     
-    this.onInvokeNewSection(Utils.getLastSegmentInPath(window.location.pathname));
+    //this.onInvokeNewSection(Utils.getLastSegmentInPath(window.location.pathname));
   }
 
   componentWillReceiveProps() {
@@ -67,23 +66,22 @@ class App extends Component {
   render() {
     
     return (
-      <React.Fragment>
-        <Router history={history}  >
+        <Router   baseName={'/home-owner-bestie-app'} >
           <Header />
           <NavBar />
           <Switch>
             <Redirect exact from='/' to='/home' />
-            <Route exact path={'/getstarted'} render={(props) => { return (<GetStarted  {...props} onClickGetStarted={() => { this.onInvokeNewSection('signup'); }} />); }} />
-            <Route exact path={'/signup'} render={(props) => { return (<SignUp {...props} />); }} />>
-            <ProtectedRoute exact path={'/home'} OnSignUpComplete={this.onSignUpComplete} RenderMethod={(props) => {
-              return (<Home {...props} onClickServiceType={(serviceType) => { this.onInvokeNewSection(serviceType); }} />);
+            <Route exact path={`${process.env.PUBLIC_URL}/`} render={(props) => { return (<GetStarted  {...props} onClickGetStarted={() => { this.onInvokeNewSection('signup'); }} />); }} />
+            <Route exact path={`${process.env.PUBLIC_URL}/signup`} render={(props) => { return (<SignUp {...props} />); }} />>
+            <Route exact path={`${process.env.PUBLIC_URL}/getstarted`} render={(props) => { return (<GetStarted {...props} />); }} />>
+            <ProtectedRoute exact path={`${process.env.PUBLIC_URL}/home`} OnSignUpComplete={this.onSignUpComplete} RenderMethod={(props) => {
+              return (<Home {...props} onClickServiceType={(serviceType, history) => { this.onInvokeNewSection(serviceType, history); }} />);
             }} />>
-            <ProtectedRoute exact path={['/home/rentyourhome', '/home/homerepairs', '/home/exploreneighborhood', '/home/explorecommunity']}
+            <ProtectedRoute exact path={[`${process.env.PUBLIC_URL}/home/rentyourhome`, `${process.env.PUBLIC_URL}/home/homerepairs`, `${process.env.PUBLIC_URL}/home/exploreneighborhood`, `${process.env.PUBLIC_URL}/home/explorecommunity`]}
               RenderMethod={(props) => { return (<CheckBackSoon {...props} />); }} />>
-            <ProtectedRoute exact path={'/home/valuatehomerent'} RenderMethod={(props) => { return (<ValuateHomeRent  {...props} />); }} />>
+            <ProtectedRoute exact path={`${process.env.PUBLIC_URL}/home/valuatehomerent`} RenderMethod={(props) => { return (<ValuateHomeRent  {...props} />); }} />>
           </Switch>
         </Router>
-      </React.Fragment >
     );
   }
 }
