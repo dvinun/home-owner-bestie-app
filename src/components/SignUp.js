@@ -38,7 +38,7 @@ class SignUp extends Component {
                     <div className="row justify-content-md-center">
                         <div>
                             <Formik
-                                initialValues={{ email: "dvinun@gmail.com", firstName: "John", phone: "6502191826", lastName: "Doe" }}
+                                initialValues={{ email: "", firstName: "", phone: "", lastName: "" }}
                                 validationSchema={Yup.object().shape({
                                     firstName: Yup.string()
                                         .required('First Name is required'),
