@@ -98,7 +98,7 @@ class ValuateHomeRent extends Component {
                 userDetails, Utils.getAddressFromAddressComponents(this.addressComponent))
             .then((result) => {
                 debugger;
-                if (result.data.message === 'No Match Found') {
+                if (result.data.message === 'No Match Found' || result.data.message === 'No Data Found') {
                     this.setState({
                         runRentValuationResult: operationResult.noMatchFound,
                         showAlert: true,
@@ -142,7 +142,7 @@ class ValuateHomeRent extends Component {
                             valueChangedIn30Days: Utils.formatter.format(result.data.valueChangedIn30Days),
                             valuationRentHigh: Utils.formatter.format(result.data.valuationRentHigh),
                             valuationRentLow: Utils.formatter.format(result.data.valuationRentLow),
-                            isRentEstimateAvailable: Utils.formatter.format(result.data.isRentEstimateAvailable),
+                            isRentEstimateAvailable: result.data.isRentEstimateAvailable,
                             rentValuationResultMessage: Utils.formatter.format(result.data.message),
                         }
                     });
@@ -202,6 +202,9 @@ class ValuateHomeRent extends Component {
             }
             else if (this.state.runRentValuationResult === operationResult.noMatchFound) {
                 alertDiv = this.getAlertDiv(operationResult.failure, 'Sorry! No match found for the address. Try a different one!');
+            }
+            else if (this.state.runRentValuationResult === operationResult.noDataFound) {
+                alertDiv = this.getAlertDiv(operationResult.failure, 'Sorry! No rental and annual data found for the address. Try a different one!');
             }
 
             if (this.state.emailReportResult === operationResult.success) {
@@ -319,7 +322,7 @@ class ValuateHomeRent extends Component {
                                         </Form.Group>
                                     </Col>
                                 </Row>
-                                <h8 id='warningRentZestimateNotAvailable' style={{ visibility: this.state.rentValuationResult.isRentEstimateAvailable ? 'hidden' : 'visible' }} >Rental data is not available. Calculation is based on annual rent of 5% of the home price data.</h8>
+                                <h8 id='warningRentZestimateNotAvailable' style={{ visibility: this.state.rentValuationResult.isRentEstimateAvailable ? 'hidden' : 'visible' }} >Rental data is not available. The calculation is based on annual cost of the home.</h8>
                             </Form>
                         </Col>
                     </Row>

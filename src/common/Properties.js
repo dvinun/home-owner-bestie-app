@@ -15,6 +15,7 @@ export const operationResult = {
   none: 'none',
   noMatchFound: 'noMatchFound',
   apiError: 'apiError',
+  noDataFound: 'noDataFound', 
 };
 
 export const buttonState = {
