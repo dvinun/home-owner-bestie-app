@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import toaster from 'toasted-notes' 
 import { Redirect } from 'react-router-dom';
 import Utils from '../common/Utils';
 import './ValuateHomeRent.css';
@@ -23,8 +24,8 @@ class ValuateHomeRent extends Component {
         super(props);
         this.state = {
             address: '',
-            emailReportResult: operationResult.none,
             runButtonState: buttonState.normal,
+            emailMeButtonState: buttonState.normal,
             runRentValuationResult: operationResult.none,
             homeOwnerSpecifiedRent: '',
             rentValuationResult: {
@@ -35,45 +36,35 @@ class ValuateHomeRent extends Component {
                 isRentEstimateAvailable: true,
                 rentValuationResultMessage: '',
             },
-            showAlert: false,
         };
     }
 
     onClickSendMeEmailReport() {
         let adapterHOBDataService = new AdapterHOBDataService();
         let userDetails = adapterHOBDataService.getUserDetails();
+        this.setState({ emailMeButtonState: buttonState.busy });
 
         adapterHOBDataService
             .runSendEmailReport(userDetails, this.state.homeOwnerSpecifiedRent)
             .then((result) => {
-                this.setState({
-                    showAlert: true,
-                    emailReportResult: operationResult.success,
-                });
+                this.setState({ emailMeButtonState: buttonState.normal });
+                toaster.notify(this.getAlertDiv(operationResult.success, 'The request has been made successfully. Now, please sit and relax while we email you the report!'));
             })
             .catch(() => {
-                this.setState({
-                    showAlert: false,
-                    emailReportResult: operationResult.failure,
-                });
+                this.setState({ emailMeButtonState: buttonState.normal });
+                toaster.notify(this.getAlertDiv(operationResult.failure, 'Sorry. There was some problem with the request. Please try again.'));
             });
     }
 
     getAlertDiv(result, resultText) {
         if (result === operationResult.success) {
             return (<>
-                <Alert variant="success" onClose={() => this.setState({ showAlert: false })} dismissible>
-                    <Alert.Heading>💚 Awesome</Alert.Heading>
-                    <p>{resultText}</p>
-                </Alert>
+                    <h5>💚 Awesome! {resultText}</h5>
             </>);
         }
         else if (result === operationResult.failure) {
             return (<>
-                <Alert variant="danger" onClose={() => this.setState({ showAlert: false })} dismissible>
-                    <Alert.Heading>💔 Yikes</Alert.Heading>
-                    <p>{resultText}</p>
-                </Alert>
+                    <h5>💔 Yikes! {resultText}</h5>
             </>);
         }
     }
@@ -99,9 +90,9 @@ class ValuateHomeRent extends Component {
             .then((result) => {
                 debugger;
                 if (result.data.message === 'No Match Found' || result.data.message === 'No Data Found') {
+                    toaster.notify(this.getAlertDiv(operationResult.failure, 'Sorry! No match/data found for the address. Try a different one!'));
                     this.setState({
                         runRentValuationResult: operationResult.noMatchFound,
-                        showAlert: true,
                         runButtonState: buttonState.normal,
                         rentValuationResult:
                         {
@@ -112,13 +103,12 @@ class ValuateHomeRent extends Component {
                             isRentEstimateAvailable: true,
                             rentValuationResultMessage: '--',
                         }
-
                     });
                 }
                 else if (result.data.message === 'Zillow API Encountered Some Unknown Error') {
+                    toaster.notify(this.getAlertDiv(operationResult.failure, 'Sorry! The server API encountered a problem. Please try again!'));
                     this.setState({
                         runRentValuationResult: operationResult.apiError,
-                        showAlert: true,
                         runButtonState: buttonState.normal,
                         rentValuationResult:
                         {
@@ -132,10 +122,10 @@ class ValuateHomeRent extends Component {
                     });
                 }
                 else {
+                    toaster.notify(this.getAlertDiv(operationResult.success, 'Your request has been processed successfully!'));
                     this.setState({
                         runButtonState: buttonState.normal,
                         runRentValuationResult: operationResult.success,
-                        showAlert: true,
                         rentValuationResult:
                         {
                             averageMonthlyRent: Utils.formatter.format(result.data.averageMonthlyRent),
@@ -143,7 +133,7 @@ class ValuateHomeRent extends Component {
                             valuationRentHigh: Utils.formatter.format(result.data.valuationRentHigh),
                             valuationRentLow: Utils.formatter.format(result.data.valuationRentLow),
                             isRentEstimateAvailable: result.data.isRentEstimateAvailable,
-                            rentValuationResultMessage: Utils.formatter.format(result.data.message),
+                            rentValuationResultMessage: result.data.message,
                         }
                     });
                 }
@@ -151,7 +141,6 @@ class ValuateHomeRent extends Component {
             .catch(() => {
                 debugger;
                 this.setState({
-                    showAlert: true,
                     runButtonState: buttonState.normal,
                     runRentValuationResult: operationResult.failure
                 })
@@ -172,52 +161,6 @@ class ValuateHomeRent extends Component {
     };
 
     render() {
-
-        let alertDiv = null;
-        let runButtonDiv = null;
-
-        if (this.state.runButtonState === buttonState.busy) {
-            runButtonDiv = (
-                <Spinner
-                    as="span"
-                    animation="border"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                />);
-        }
-        else {
-            runButtonDiv = 'Run';
-        }
-
-        if (this.state.showAlert === true) {
-            if (this.state.runRentValuationResult === operationResult.success) {
-                alertDiv = this.getAlertDiv(operationResult.success, 'Your request has been successfully processed.');
-            }
-            else if (this.state.runRentValuationResult === operationResult.failure) {
-                alertDiv = this.getAlertDiv(operationResult.failure, 'Sorry! Something went wrong. Please try again!');
-            }
-            else if (this.state.runRentValuationResult === operationResult.apiError) {
-                alertDiv = this.getAlertDiv(operationResult.failure, 'Sorry! The server API encountered a problem. Please try again!');
-            }
-            else if (this.state.runRentValuationResult === operationResult.noMatchFound) {
-                alertDiv = this.getAlertDiv(operationResult.failure, 'Sorry! No match found for the address. Try a different one!');
-            }
-            else if (this.state.runRentValuationResult === operationResult.noDataFound) {
-                alertDiv = this.getAlertDiv(operationResult.failure, 'Sorry! No rental and annual data found for the address. Try a different one!');
-            }
-
-            if (this.state.emailReportResult === operationResult.success) {
-                alertDiv = this.getAlertDiv(operationResult.success, 'The request has been made successfully. Now, please sit and relax while we email you the report!');
-            }
-            else if (this.state.emailReportResult === operationResult.failure) {
-                alertDiv = this.getAlertDiv(operationResult.failure, 'Sorry. There was some problem with the request. Please try again.');
-            }
-        }
-        else {
-            alertDiv = null;
-        }
-
 
         return (
             <React.Fragment>
@@ -243,7 +186,17 @@ class ValuateHomeRent extends Component {
                                             />
                                             <InputGroup.Append>
                                                 <Button variant="primary" onClick={() => this.OnRunRentValuationReport()}>
-                                                    {runButtonDiv}
+                                                { this.state.runButtonState === buttonState.busy &&  
+                                                        (
+                                                            <Spinner
+                                                                as="span"
+                                                                animation="border"
+                                                                size="sm"
+                                                                role="status"
+                                                                aria-hidden="true"
+                                                            />)
+                                                }
+                                                {this.state.runButtonState !== buttonState.busy && "Run"} 
                                                 </Button>
                                             </InputGroup.Append>
                                         </InputGroup>
@@ -283,7 +236,19 @@ class ValuateHomeRent extends Component {
                             </InputGroup>
                             <Row className='text-left-align'>
                                 <Col md={4}>
-                                    <Button disabled={!(this.state.runRentValuationResult === operationResult.success)} variant="primary" size="md" onClick={() => { this.onClickSendMeEmailReport(); }}>Email me the report</Button>
+                                    <Button disabled={!(this.state.runRentValuationResult === operationResult.success)} variant="primary" size="md" onClick={() => { this.onClickSendMeEmailReport(); }}>
+                                        {this.state.emailMeButtonState === buttonState.busy &&
+                                            (
+                                                <Spinner
+                                                    as="span"
+                                                    animation="border"
+                                                    size="sm"
+                                                    role="status"
+                                                    aria-hidden="true"
+                                                />)
+                                        }
+                                        {this.state.emailMeButtonState !== buttonState.busy && "Email me the report"} 
+                                    </Button>
                                 </Col>
                                 <Col md={{ offset: 0 }}>
                                     <h6 className='text-muted' >We can email you the report. Just click the submit.</h6>
@@ -327,13 +292,6 @@ class ValuateHomeRent extends Component {
                         </Col>
                     </Row>
                 </Container>
-
-                <Container className={'home-rent-summary-send-report-result-alert little-padding  justify-content-md-center '}>
-                    <Row>
-                        {alertDiv}
-                    </Row>
-                </Container>
-
             </React.Fragment>
         );
     }
