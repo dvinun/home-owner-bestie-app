@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import toaster from 'toasted-notes' 
-import { Redirect } from 'react-router-dom';
 import Utils from '../common/Utils';
 import './ValuateHomeRent.css';
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
-import { Spinner, Alert, Row, Col, Container } from 'react-bootstrap';
+import { Spinner,  Row, Col, Container } from 'react-bootstrap';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import AdapterHOBDataService from '../data/DataService';
 import { operationResult, buttonState } from '../common/Properties';
@@ -70,7 +69,6 @@ class ValuateHomeRent extends Component {
     }
 
     handleChangeHomeOwnerRent(event) {
-        let fieldName = event.target.name;
         let fleldVal = event.target.value;
         this.setState({ homeOwnerSpecifiedRent: fleldVal });
     }

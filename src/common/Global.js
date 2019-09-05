@@ -40,18 +40,38 @@ class Global {
 
         if(this.clientIPAddress) return this.clientIPAddress;
         
-        await (new Promise((resolve, reject) => {
-            var w = window,
-                a = new (w.RTCPeerConnection || w.mozRTCPeerConnection || w.webkitRTCPeerConnection)({ iceServers: [] }), b = () => { }; a.createDataChannel("");
-            a.createOffer(c => a.setLocalDescription(c, b, b), b);
-            a.onicecandidate = c => {
-                try {
-                    c.candidate.candidate.match(/([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/g)
-                    .forEach(resolve)
-                }
-                catch (e) { }
-            }
-        })).then(ip => { this.clientIPAddress = ip; return this.clientIPAddress;}).catch(e => console.error(e));
+        const axios = require('axios');
+        await (axios.get('//api.ipify.org/?format=json')
+            .then(function (response) {
+                // handle success
+                debugger;
+                console.log(response);
+                return response.data.ip;
+            })
+            .catch(function (error) {
+                debugger;
+                // handle error
+                console.log(error);
+                return "";
+            })
+            .finally(function () {
+                debugger;
+                // always executed
+            }))
+            .then(ip => { this.clientIPAddress = ip; return this.clientIPAddress;}).catch(e => console.error(e));
+        
+        // await (new Promise((resolve, reject) => {
+        //     var w = window,
+        //         a = new (w.RTCPeerConnection || w.mozRTCPeerConnection || w.webkitRTCPeerConnection)({ iceServers: [] }), b = () => { }; a.createDataChannel("");
+        //     a.createOffer(c => a.setLocalDescription(c, b, b), b);
+        //     a.onicecandidate = c => {
+        //         try {
+        //             c.candidate.candidate.match(/([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/g)
+        //             .forEach(resolve)
+        //         }
+        //         catch (e) { }
+        //     }
+        // })).then(ip => { this.clientIPAddress = ip; return this.clientIPAddress;}).catch(e => console.error(e));
         return this.clientIPAddress;
     }
 }

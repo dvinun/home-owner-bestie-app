@@ -21,6 +21,34 @@ class SignUp extends Component {
         };
     }
 
+    onFormSubmit = async (values, { setSubmitting }) => {
+
+            // wait till we get the result
+            var clientIPAddress = await (new Global()).getClientIPAddress();
+            
+            var hobUserData = new HOBUserData(values.firstName, values.lastName,
+                values.email, values.phone, clientIPAddress);
+
+            // wait till sign-up finishes
+            var response = await (new AdapterHOBDataService()).setUserData(hobUserData);
+            
+            if (response) {
+                toaster.notify(
+                    <h4 className='text-muted text-center'> 💚 Congratulations! You have successfully signed up.</h4>
+                );
+                this.setState({ signUpComplete: true });
+            }
+            else {
+                toaster.notify(
+                    <h4 className='text-muted text-center'> 💔 Sorry! Signup Failed. Please try again.</h4>
+                );
+                this.setState({ signUpComplete: false });
+            }
+
+            setSubmitting(false);
+      };
+
+
     render() {
         const phoneRegExp = /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/
         
@@ -51,33 +79,7 @@ class SignUp extends Component {
 
                                 })}
                                 // make the function async as we invoke method to get ip address in a block mode.
-                                onSubmit={async (values, { setSubmitting }) => {
-
-                                    // wait till we get the result
-                                    var clientIPAddress = await (new Global()).getClientIPAddress();
-
-                                    
-                                    var hobUserData = new HOBUserData(values.firstName, values.lastName,
-                                        values.email, values.phone, clientIPAddress);
-
-                                    // wait till sign-up finishes
-                                    var response = await (new AdapterHOBDataService()).setUserData(hobUserData);
-                                    
-                                    if (response) {
-                                        toaster.notify(
-                                            <h4 className='text-muted text-center'> 💚 Congratulations! You have successfully signed up.</h4>
-                                        );
-                                        this.setState({ signUpComplete: true });
-                                    }
-                                    else {
-                                        toaster.notify(
-                                            <h4 className='text-muted text-center'> 💔 Sorry! Signup Failed. Please try again.</h4>
-                                        );
-                                        this.setState({ signUpComplete: false });
-                                    }
-
-                                    setSubmitting(false);
-                                }}
+                                onSubmit={this.onFormSubmit}
                             >
                                 {({ touched, errors, isSubmitting }) => (
                                     <Form className='signup-form '>

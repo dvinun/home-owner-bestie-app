@@ -1,4 +1,9 @@
 
+@font-face {
+    font-family: 'Bukhari Script';
+    src: local('Bukhari Script'), url('/fonts/Bukhari Script.ttf');
+  }
+
 .header-main
 {
     height: 60px;
