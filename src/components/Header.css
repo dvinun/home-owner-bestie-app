@@ -19,9 +19,9 @@
 {
     font-family: 'Bukhari Script'; 
     z-index: 3;
-    position: absolute;
-    color: #ffffff;
-    font-size: xx-large;
+    position: absolute !important;
+    color: #ffffff !important;
+    font-size: xx-large !important;
     left: 1rem;
 }
 
@@ -76,18 +76,23 @@
     color: #e8f8da;
 }
 
-@media only screen and (max-width: 550px) {
-    .header-shortcuts {
-        display: none;
+@media only screen and (max-width: 414px) {
+    .header-user-welcome-text {
+        display: none !important;
+    }
+
+    .header-main
+    {
+        padding: 1.5rem !important;
     }
 }
 
 .header-user-welcome-text
 {
     text-align: right !important;
-    color: white;
-    font-weight: 700;
-    font-size: x-large;
+    color: white !important;
+    font-weight: 700 !important;
+    font-size: x-large !important;
     padding-right: 2rem !important;
     padding-top: 8px !important;
 }
