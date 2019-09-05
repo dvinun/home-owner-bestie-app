@@ -6,7 +6,6 @@
 
 .header-main
 {
-    height: 60px;
     background-color:#34629b;
     z-index: 0;
 }
@@ -23,8 +22,7 @@
     position: absolute;
     color: #ffffff;
     font-size: xx-large;
-    top: 5px;
-    left: 10px;
+    left: 1rem;
 }
 
 .header-company-tagline
@@ -45,7 +43,6 @@
     width: 100%;
     text-align: right;
     top: 10px;
-    right: 20px;
     float: left;
 }
 
@@ -91,6 +88,6 @@
     color: white;
     font-weight: 700;
     font-size: x-large;
-    padding-right: 30px !important;
+    padding-right: 2rem !important;
     padding-top: 8px !important;
 }

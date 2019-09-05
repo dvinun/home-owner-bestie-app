@@ -17,7 +17,7 @@ class Header extends Component {
             <React.Fragment>
                 <div className='header-main'>
                     <Row>
-                        <Col md={4} className='header-company-name'>Home Owner Bestie </Col>
+                        <Col  className='header-company-name'>Home Owner Bestie </Col>
                         <Col  className='header-user-welcome-text'>{userWelcomeDiv}</Col>
                     </Row>
                 </div>

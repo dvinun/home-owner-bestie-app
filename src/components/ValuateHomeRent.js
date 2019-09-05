@@ -178,7 +178,7 @@ class ValuateHomeRent extends Component {
                                         <InputGroup className="mb-3 search-home-address-textbox " size="lg">
                                             <FormControl id='HomeAddressSearch'
                                                 {...getInputProps({
-                                                    placeholder: 'Type here...',
+                                                    placeholder: 'Type here',
                                                     className: 'location-search-input',
                                                 })}
                                             />
