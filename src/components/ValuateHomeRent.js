@@ -44,7 +44,7 @@ class ValuateHomeRent extends Component {
         this.setState({ emailMeButtonState: buttonState.busy });
 
         adapterHOBDataService
-            .runSendEmailReport(userDetails, this.state.homeOwnerSpecifiedRent)
+            .runSendEmailReport(userDetails, this.state.homeOwnerSpecifiedRent == ""? 0 : this.state.homeOwnerSpecifiedRent)
             .then((result) => {
                 this.setState({ emailMeButtonState: buttonState.normal });
                 toaster.notify(this.getAlertDiv(operationResult.success, 'The request has been made successfully. Now, please sit and relax while we email you the report!'));

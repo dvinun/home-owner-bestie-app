@@ -159,7 +159,7 @@ class ServerHOBDataService extends HOBDataService {
             .catch(function (error) {
                 debugger;
                 console.log(error);
-                return false;
+                throw error;
             })
             .finally(function () {
                 // always executed

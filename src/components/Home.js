@@ -13,7 +13,7 @@ class Home extends Component {
                 <Container>
                     <Row className="little-padding text-center  justify-content-md-center">
                         <div>
-                            <h1>How we can help you today?</h1>
+                            <h1>How can we help you today?</h1>
                             <p className='text-muted '> Select our range of services to explore. Its just a click away!</p>
                         </div>
                     </Row>
